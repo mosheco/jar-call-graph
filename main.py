@@ -18,7 +18,7 @@ def get_all_class_files(tmpdirname):
 
 
 CLASS_OR_IF_DEF_RE = re.compile(
-    r"^\s*(.*)?\s*(class|interface)\s+([\w\.]+)\s+(extends|implements)?\s*([\w\.\<\>\s,\$]+)?.*{")
+    r"^\s*(.*)?\s*(class|interface)\s+([\w\.]+)\s+(extends\s*[\w\.\<\>\$]+)?\s*(implements\s*[\w\.\<\>\s,\$]+)?.*{")
 # INTERFACE_DEF_RE = re.compile(r"^.*?interface\s+([\w\.]+)\s.*{")
 METHOD_DEF_RE = re.compile(
     r"^\s*(public|private|protected)?\s*((static\s*|final\s*|abstract\s*|transient\s*|synchronized\s*|volatile\s*)*)\s*([\w\.\<\>\$]+)?\s+([\w\.]*\(.*\)).*;")
@@ -34,16 +34,18 @@ def extract_calls(contents, class_writer, method_writer):
     current_class_or_if = None
     try:
         for line in contents.split('\n'):
-            # print(line)
+            #print(line)
             match = CLASS_OR_IF_DEF_RE.match(line)
             if match is not None:
                 #print(line)
                 access = match.group(1)
                 type = match.group(2)
                 current_class_or_if = match.group(3)
-                ext_impl = match.group(4)
-                ext_list = match.group(5)
-                ext_list = ext_impl and ext_impl.strip().split(',') or []
+                extends_part = match.group(4)
+                extended_class = extends_part and extends_part.replace('extends', '').strip()
+                implements_part = match.group(5)
+                implemented_interfaces = implements_part and implements_part.replace('implements', '').replace(' ', '').replace(',', ';')
+                class_writer.writerow([type, current_class_or_if, extended_class, implemented_interfaces])
                 #print("access", access)
                 #print("type:", type)
                 #print("current_class_or_if:", current_class_or_if)
@@ -153,6 +155,6 @@ if __name__ == '__main__':
             contents = open("/tmp/disassembled").read()
             extract_calls(contents, class_writer, method_writer)
 
-        while True:
-            print('created temporary directory', tmpdirname)
-            time.sleep(20)
+        # while True:
+        #     print('created temporary directory', tmpdirname)
+        #     time.sleep(20)
