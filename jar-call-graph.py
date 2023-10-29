@@ -11,6 +11,7 @@ def expand_jar(tmpdirname, jarpath):
     command = "tar -C " + tmpdirname + " -xf " + jarpath
     os.system(command)
 
+
 def get_all_class_files(tmpdirname):
     files = glob.glob(tmpdirname + '/**/*.class', recursive=True)
     return files
@@ -18,7 +19,6 @@ def get_all_class_files(tmpdirname):
 
 CLASS_OR_IF_DEF_RE = re.compile(
     r"^\s*(.*)?\s*(class|interface)\s+([\w\.]+)\s+(extends\s*[\w\.\<\>\$]+)?\s*(implements\s*[\w\.\<\>\s,\$]+)?.*{")
-# INTERFACE_DEF_RE = re.compile(r"^.*?interface\s+([\w\.]+)\s.*{")
 METHOD_DEF_RE = re.compile(
     r"^\s*(public|private|protected)?\s*((static\s*|final\s*|abstract\s*|transient\s*|synchronized\s*|volatile\s*)*)\s*([\w\.\<\>\$]+)?\s+([\w\.]*\(.*\)).*;")
 METHOD_DEF_RE = re.compile(r"""^\s*(public|private|protected)?  # access
@@ -95,7 +95,7 @@ short_to_long_mapping = {
     "F": "float",
     "I": "int",
     "J": "long", ''
-                 "S": "short",
+    "S": "short",
     "Z": "boolean"
 }
 
