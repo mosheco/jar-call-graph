@@ -11,7 +11,6 @@ def expand_jar(tmpdirname, jarpath):
     command = "tar -C " + tmpdirname + " -xf " + jarpath
     os.system(command)
 
-
 def get_all_class_files(tmpdirname):
     files = glob.glob(tmpdirname + '/**/*.class', recursive=True)
     return files
