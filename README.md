@@ -7,6 +7,6 @@
 
 ###  Output files:
 
-   `classes_and_interfaces.csv` : classes and interfaces with their parents and implements list
+   `classes_and_interfaces.csv` : classes and interfaces with their parents and implements list  
    `method_calls.csv`: fully named methods and the fully named methods they call. Also has access modifier and invocation type
    
