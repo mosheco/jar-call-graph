@@ -19,8 +19,6 @@ def get_all_class_files(tmpdirname):
 
 CLASS_OR_IF_DEF_RE = re.compile(
     r"^\s*(.*)?\s*(class|interface)\s+([\w\.]+)\s+(extends\s*[\w\.\<\>\$]+)?\s*(implements\s*[\w\.\<\>\s,\$]+)?.*{")
-METHOD_DEF_RE = re.compile(
-    r"^\s*(public|private|protected)?\s*((static\s*|final\s*|abstract\s*|transient\s*|synchronized\s*|volatile\s*)*)\s*([\w\.\<\>\$]+)?\s+([\w\.]*\(.*\)).*;")
 METHOD_DEF_RE = re.compile(r"""^\s*(public|private|protected)?  # access
                                        \s*((static\s*|final\s*|abstract\s*|transient\s*|synchronized\s*|volatile\s*)*)\s* # all modifiers
                                        ([\w\.\<\>\$]+)?\s+  # return value
